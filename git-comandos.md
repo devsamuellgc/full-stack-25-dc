@@ -15,3 +15,5 @@
 - git checkout "nome-branch" -> Mudar da branch atual para a escolhida "nome-branch"
 
 - git pull -> Recebe todas as mudanças da branch que estão no Github e não na sua máquina
+
+- git clone "url do repositório" -> Clonar o repositório do Github para a sua máquina
