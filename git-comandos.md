@@ -10,6 +10,8 @@
 
 - git push -> Enviar o commit e as atualizações para o repositório no Github
 
+- git push -u origin "nome-branch" -> enviar o primeiro push da sua nova branch
+
 - git checkout -b "nome-branch" -> Criar uma nova branch no projeto
 
 - git checkout "nome-branch" -> Mudar da branch atual para a escolhida "nome-branch"
