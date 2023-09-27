@@ -36,7 +36,9 @@
         </div>
         <div>
           <ul class="flex gap-5 text-black font-bold">
-            <li class="hover:text-red-700 flex gap-2 items-center cursor-pointer">
+            <li
+              class="hover:text-red-700 flex gap-2 items-center cursor-pointer"
+            >
               <i class="bx bxs-car"></i>
               <p>Seminovos</p>
             </li>
@@ -44,6 +46,68 @@
             <li class="hover:text-red-700 cursor-pointer">Grupo carmais</li>
           </ul>
         </div>
+      </div>
+    </section>
+    <section class="flex h-screen px-16 gap-24 my-10">
+      <div class="w-1/4 flex flex-col gap-8">
+        <div>
+          <p class="text-justify text-lg">
+            Preencha os filtros abaixo e encontre uma de nossas lojas mais
+            próxima de você.
+          </p>
+        </div>
+        <form class="flex flex-col gap-5">
+          <div class="flex flex-col gap-2">
+            <label for="marca" class="font-bold">Marca de interesse</label>
+            <select id="marca" class="px-1 py-4 bg-[#DDD] rounded-sm">
+              <option selected hidden>Escolha a marca</option>
+              <option>Ford</option>
+              <option>Fiat</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="marca" class="font-bold">Marca de interesse</label>
+            <select
+              disabled
+              id="marca"
+              class="px-1 py-4 bg-[#DDD] rounded-sm cursor-not-allowed"
+            >
+              <option selected hidden>Escolha a marca</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="marca" class="font-bold">Marca de interesse</label>
+            <select
+              disabled
+              id="marca"
+              class="px-1 py-4 bg-[#DDD] rounded-sm cursor-not-allowed"
+            >
+              <option selected hidden>Escolha a marca</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="marca" class="font-bold">Marca de interesse</label>
+            <select
+              disabled
+              id="marca"
+              class="px-1 py-4 bg-[#DDD] rounded-sm cursor-not-allowed"
+            >
+              <option selected hidden>Escolha a marca</option>
+            </select>
+          </div>
+          <button
+            disabled
+            class="text-white font-bold uppercase px-1 py-4 bg-gray-500 rounded-sm cursor-not-allowed"
+          >
+            Buscar
+          </button>
+        </form>
+      </div>
+      <div class="w-3/4 rounded-xl overflow-hidden">
+        <iframe
+          class="w-full h-full"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.236509277805!2d-38.534405384981206!3d-3.758619997265528!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c74925e4f67c17%3A0x90b3d24d57169f53!2sConcession%C3%A1ria+Fiat+C.D.A.!5e0!3m2!1spt-BR!2sbr!4v1474731846393"
+        ></iframe>
       </div>
     </section>
   </body>
