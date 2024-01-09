@@ -32,11 +32,13 @@ aside {
 
 main {
   position: fixed;
-  background: gray;
+  background: lightgray;
   top: 90px;
   left: 250px;
   right: 0px;
   bottom: 0px;
+  padding: 20px;
+  overflow-y: auto;
 }
 
 .list-options {
@@ -70,4 +72,70 @@ main {
 .sidebar .sidebar-items:hover {
   background-color: aqua;
   cursor: pointer;
+}
+
+.table-container {
+  padding: 15px;
+  background-color: white;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  box-shadow: 6px 6px 5px -4px rgba(0, 0, 0, 0.75);
+  min-height: 70vh;
+}
+
+.table {
+  width: 100%;
+  border-spacing: 0px;
+}
+
+.table thead .header {
+  width: 25%;
+  border-bottom: 1px solid black;
+  padding-bottom: 8px;
+  text-align: left;
+}
+
+.actions {
+  text-align: center !important;
+}
+
+.table tbody .actions .actions-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.table tbody .actions .actions-buttons button {
+  width: 70px;
+  height: 30px;
+  border-radius: 6px;
+  border: none;
+  box-shadow: 2px 2px 5px -4px rgba(0, 0, 0, 0.75);
+  cursor: pointer;
+}
+
+.table tbody .actions .actions-buttons .edit {
+  background-color: rgba(0, 0, 255, 0.8);
+  color: white;
+  border: 1px solid blue;
+}
+
+.table tbody .actions .actions-buttons .edit:hover {
+  background-color: blue;
+}
+
+.table tbody .actions .actions-buttons .delete {
+  background-color: rgba(255, 0, 0, 0.8);
+  color: white;
+  border: 1px solid red;
+}
+
+.table tbody .actions .actions-buttons .delete:hover {
+  background-color: red;
+}
+
+.table tbody .body-cell {
+  padding: 10px 0;
 }

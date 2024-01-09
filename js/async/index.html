@@ -26,23 +26,28 @@
       </ul>
     </aside>
     <main>
-      <div>
-        <table>
+      <div class="table-container">
+        <table class="table">
           <thead>
             <tr>
-              <th>Nome</th>
-              <th>E-mail</th>
-              <th>Telefone</th>
-              <th>Ações</th>
+              <th class="header">Nome</th>
+              <th class="header">E-mail</th>
+              <th class="header">Telefone</th>
+              <th class="header actions">Ações</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>Nome 1</td>
-              <td>email@teste.com</td>
-              <td>(99) 99999-9999</td>
-              <td><button>Editar</button><button>Excluir</button></td>
-            </tr>
+          <tbody id="tableContent">
+            <!-- <tr>
+              <td class="body-cell">Nome 1</td>
+              <td class="body-cell">email@teste.com</td>
+              <td class="body-cell">(99) 99999-9999</td>
+              <td class="body-cell actions">
+                <div class="actions-buttons">
+                  <button class="edit">Editar</button>
+                  <button class="delete">Excluir</button>
+                </div>
+              </td>
+            </tr> -->
           </tbody>
         </table>
       </div>
