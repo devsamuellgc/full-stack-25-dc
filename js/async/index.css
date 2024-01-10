@@ -107,7 +107,8 @@ main {
   justify-content: center;
 }
 
-.table tbody .actions .actions-buttons button {
+.table tbody .actions .actions-buttons button,
+.btn-add {
   width: 70px;
   height: 30px;
   border-radius: 6px;
@@ -116,13 +117,15 @@ main {
   cursor: pointer;
 }
 
-.table tbody .actions .actions-buttons .edit {
+.table tbody .actions .actions-buttons .edit,
+.btn-add {
   background-color: rgba(0, 0, 255, 0.8);
   color: white;
   border: 1px solid blue;
 }
 
-.table tbody .actions .actions-buttons .edit:hover {
+.table tbody .actions .actions-buttons .edit:hover,
+.btn-add:hover {
   background-color: blue;
 }
 
@@ -138,4 +141,17 @@ main {
 
 .table tbody .body-cell {
   padding: 10px 0;
+}
+
+.add-div {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+main .btn-add {
+  width: fit-content;
+  padding: 2px 8px;
 }
