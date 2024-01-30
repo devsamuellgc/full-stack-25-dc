@@ -1,6 +1,6 @@
 export function Card({ url, email, nome, telefone }) {
   return (
-    <div className="p-5 rounded-lg flex flex-col bg-white shadow-xl w-80 gap-8">
+    <div className="p-5 h-fit rounded-lg flex flex-col bg-white shadow-xl w-80 gap-8">
       <div className="rounded-full mx-auto overflow-hidden w-44 h-44">
         <img src={url} alt="" />
       </div>
