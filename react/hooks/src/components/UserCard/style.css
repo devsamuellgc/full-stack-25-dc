@@ -1,0 +1,13 @@
+.card {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid black;
+  background: #fff;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  list-style-type: none;
+}
