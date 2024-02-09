@@ -6,7 +6,7 @@ export function UserCard({ user }) {
       <ul className="list">
         <li className="item">Nome: {user.name}</li>
         <li className="item">E-mail: {user.email}</li>
-        <li className="item">Telefone: {user.phone}</li>
+        {user.phone && <li className="item">Telefone: {user.phone}</li>}
       </ul>
     </div>
   );

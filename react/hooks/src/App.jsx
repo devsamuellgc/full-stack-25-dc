@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { UserCard } from "./components/UserCard";
 import UserForm from "./components/UserForm";
+import axios from "axios";
 
 export default function App() {
   const [user, setUser] = useState({
@@ -8,29 +9,39 @@ export default function App() {
     email: "",
     phone: "",
   });
+  const [users, setUsers] = useState([]);
 
-  const handleInput = (e) => {
+  const handleInputForm = (e) => {
     setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  useEffect(() => {
-    setTimeout(() => {
-      setUser({
-        name: "Teste useEffect",
-        email: "Teste useEffect",
-        phone: "Teste useEffect",
-      });
-    }, 1000);
-  }, []);
+  const handleSubmitForm = async (e) => {
+    e.preventDefault();
+    setUsers((prev) => [...prev, { ...user, id: Math.random() }]);
+    // await axios.post("https://65a5c2b574cf4207b4eee269.mockapi.io/users", user);
+  };
+
+  async function fetchUsers() {
+    const response = await axios.get(
+      "https://65a5c2b574cf4207b4eee269.mockapi.io/users"
+    );
+    setUsers(response.data);
+  }
 
   useEffect(() => {
-    console.log(user);
-  }, [user]);
+    fetchUsers();
+  }, []);
 
   return (
     <main className="container">
-      <UserForm user={user} handleInput={handleInput} />
-      <UserCard user={user} />
+      <UserForm
+        user={user}
+        handleInput={handleInputForm}
+        handleSubmit={handleSubmitForm}
+      />
+      {users.map((user) => (
+        <UserCard key={user.id} user={user} />
+      ))}
     </main>
   );
 }
