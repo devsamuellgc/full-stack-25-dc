@@ -1,6 +1,6 @@
 import "./style.css";
 
-export default function UserForm({ user, handleInput, handleSubmit }) {
+export default function UserForm({ user, handleInput, handleSubmit, isDisabled }) {
   return (
     <div className="card">
       <form className="form">
@@ -28,7 +28,7 @@ export default function UserForm({ user, handleInput, handleSubmit }) {
           type="text"
           placeholder="Telefone do usuário"
         />
-        <button onClick={handleSubmit}>Criar usuário</button>
+        <button disabled={isDisabled} onClick={handleSubmit}>Criar usuário</button>
       </form>
     </div>
   );
