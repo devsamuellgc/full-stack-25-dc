@@ -26,6 +26,39 @@ const clientes = [
   },
 ];
 
+const lojas = [
+  {
+    id: "1",
+    nome: "Loja 1",
+    invoice: 1598.45,
+    state: "CE",
+  },
+  {
+    id: "2",
+    nome: "Loja 2",
+    invoice: 2000,
+    state: "SP",
+  },
+  {
+    id: "3",
+    nome: "Loja 3",
+    invoice: 4500,
+    state: "RJ",
+  },
+  {
+    id: "4",
+    nome: "Loja 4",
+    invoice: 159.98,
+    state: "CE",
+  },
+  {
+    id: "5",
+    nome: "Loja 5",
+    invoice: 8759.44,
+    state: "SP",
+  },
+];
+
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
@@ -44,6 +77,48 @@ app.get("/cliente/:id", (req, res) => {
   return res.json({
     data: cliente,
     mensagem: "Cliente encontrado com sucesso!",
+  });
+});
+
+app.get("/lojas", (req, res) => {
+  return res.json({
+    data: lojas,
+    mensagem: "Lojas encontradas com sucesso!",
+  });
+});
+
+app.get("/loja/:id", (req, res) => {
+  const id = req.params.id;
+  const loja = lojas.find((loja) => loja.id === id);
+
+  return res.json({
+    data: loja,
+    mensagem: "Loja encontrada com sucesso!",
+  });
+});
+
+app.get("/lojas/faturamento-total", (req, res) => {
+  const faturamentoTotalLojas = lojas.reduce((prev, current) => {
+    return prev + current.invoice;
+  }, 0);
+  return res.json({
+    data: faturamentoTotalLojas,
+    message: "Faturamentos calculados com sucesso!",
+  });
+});
+
+app.get("/lojas/faturamento-por-uf", (req, res) => {
+  const faturamentoLojasPorUf = {};
+  lojas.map((loja) => {
+    if (!!faturamentoLojasPorUf[loja.state]) {
+      return (faturamentoLojasPorUf[loja.state] =
+        faturamentoLojasPorUf[loja.state] + loja.invoice);
+    }
+    return (faturamentoLojasPorUf[loja.state] = loja.invoice);
+  });
+  return res.json({
+    data: faturamentoLojasPorUf,
+    message: "Faturamentos por UF calculados com sucesso!",
   });
 });
 
