@@ -64,20 +64,42 @@ app.get("/", (req, res) => {
 });
 
 app.get("/clientes", (req, res) => {
-  return res.json({
-    data: clientes,
-    mensagem: "Clientes recebidos com sucesso!",
-  });
+  if (!!clientes.length) {
+    return res.status(200).json({
+      data: clientes,
+      mensagem: "Clientes recebidos com sucesso!",
+    });
+  }
+
+  if (!clientes.length) {
+    return res.status(200).json({
+      data: clientes,
+      mensagem: "Não há clientes cadastrados!",
+    });
+  }
+
+  return res.status(500).send("Erro no servidor. Tente novamente mais tarde!");
 });
 
 app.get("/cliente/:id", (req, res) => {
   const id = req.params.id;
+
+  if (!id) {
+    return res.status(400).json({ mensagem: "O id é obrigatório!" });
+  }
+
   const cliente = clientes.find((cliente) => cliente.id === id);
 
-  return res.json({
-    data: cliente,
-    mensagem: "Cliente encontrado com sucesso!",
-  });
+  if (!cliente) {
+    return res.status(404).json({ mensagem: "Cliente não encontrado!" });
+  }
+
+  if (!!Object.keys(cliente).length) {
+    return res.status(200).json({
+      data: cliente,
+      mensagem: "Cliente encontrado com sucesso!",
+    });
+  }
 });
 
 app.get("/lojas", (req, res) => {
