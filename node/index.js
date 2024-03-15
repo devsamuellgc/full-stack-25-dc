@@ -2,6 +2,7 @@ import express from "express";
 
 const app = express();
 const port = 3000;
+app.use(express.json());
 
 const clientes = [
   {
@@ -142,6 +143,50 @@ app.get("/lojas/faturamento-por-uf", (req, res) => {
     data: faturamentoLojasPorUf,
     message: "Faturamentos por UF calculados com sucesso!",
   });
+});
+
+app.post("/lojas", (req, res) => {
+  const loja = req.body;
+
+  if (!loja.id) {
+    return res.status(400).json({ mensagem: "O Id é obrigatório!" });
+  }
+
+  if (!loja.nome) {
+    return res.status(400).json({ mensagem: "O nome é obrigatório!" });
+  }
+
+  if (!loja.state) {
+    return res.status(400).json({ mensagem: "O estado é obrigatório!" });
+  }
+
+  if (!loja.invoice || loja.invoice < 0) {
+    return res.status(400).json({ mensagem: "O faturamento é obrigatório!" });
+  }
+
+  if (typeof loja.invoice !== "number") {
+    return res
+      .status(400)
+      .json({ mensagem: "O faturamento precisa ser um número!" });
+  }
+
+  if (!!Object.keys(loja).length) {
+    lojas.push(loja);
+    return res
+      .status(201)
+      .json({ mensagem: "Loja criado com sucesso", data: loja });
+  }
+
+  return res
+    .status(500)
+    .json({ mensagem: "Erro, tente novamente mais tarde!" });
+});
+
+app.post("/clientes", (req, res) => {
+  clientes.push(req.body);
+  return res
+    .status(201)
+    .json({ mensagem: "Clientes criada com sucesso!", data: req.body });
 });
 
 app.listen(port, () => {

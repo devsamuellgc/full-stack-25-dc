@@ -4,6 +4,7 @@ import { About } from "./pages/About";
 import { AppLayout } from "./layouts/AppLayout";
 import { Client } from "./pages/Client";
 import { Clients } from "./pages/Clients";
+import { UserContextProvider } from "./contexts/userContext";
 
 const router = createBrowserRouter([
   {
@@ -12,11 +13,19 @@ const router = createBrowserRouter([
   },
   {
     path: "about",
-    element: <About />,
+    element: (
+      <UserContextProvider>
+        <About />
+      </UserContextProvider>
+    ),
   },
   {
     path: "/app",
-    element: <AppLayout />,
+    element: (
+      <UserContextProvider>
+        <AppLayout />
+      </UserContextProvider>
+    ),
     children: [
       {
         path: "clientes",
