@@ -152,6 +152,12 @@ app.post("/lojas", (req, res) => {
     return res.status(400).json({ mensagem: "O Id é obrigatório!" });
   }
 
+  const idAlreadyExist = lojas.some((item) => item.id === String(loja.id));
+
+  if (idAlreadyExist) {
+    return res.status(400).json({ mensagem: "O Id já foi cadastrado!" });
+  }
+
   if (!loja.nome) {
     return res.status(400).json({ mensagem: "O nome é obrigatório!" });
   }
@@ -187,6 +193,36 @@ app.post("/clientes", (req, res) => {
   return res
     .status(201)
     .json({ mensagem: "Clientes criada com sucesso!", data: req.body });
+});
+
+app.delete("/lojas/:id", (req, res) => {
+  const id = req.params.id;
+  const index = lojas.findIndex((loja) => loja.id === id);
+
+  if (index === -1) {
+    return res.status(400).json({ mensagem: "ID não encontrado!" });
+  }
+
+  lojas.splice(index, 1);
+  return res.status(200).json({ mensagem: "Loja deletada com sucesso!" });
+});
+
+app.delete("/lojas", (req, res) => {
+  const ids = req.body.ids;
+  const hasAllIds = ids.map((id) => lojas.some((loja) => loja.id === id));
+  const isEveryItemTrue = hasAllIds.every((value) => value);
+  if (isEveryItemTrue) {
+    ids.map((id) => {
+      const index = lojas.findIndex((loja) => loja.id === id);
+      lojas.splice(index, 1);
+    });
+    return res.status(200).json({ mensagem: "Lojas deletadas com sucesso!" });
+  }
+  return res.status(400).json({ mensagem: "Um dos IDs não foi encontrado!" });
+});
+
+app.patch("/lojas/:id", (req, res) => {
+  const novaLoja = req.body;
 });
 
 app.listen(port, () => {
