@@ -69,8 +69,69 @@ const getTotalStoreInvoicePerUf = (req, res) => {
     .status(500)
     .json({ mensagem: "Ocorreu um erro, tente novamente mais tarde!" });
 };
+
+const removeAStore = (req, res) => {
+  const id = req.params.id;
+  const store = storeService.getStoreById(id);
+  if (!store) {
+    return res.status(404).json({ mensagem: "Loja não encontrada!" });
+  }
+  const removedStore = storeService.removeAStore(store.id);
+  if (!!Object.keys(removedStore).length) {
+    return res
+      .status(200)
+      .json({ mensagem: "Loja deletada com sucesso", data: store });
+  }
+  return res
+    .status(500)
+    .json({ mensagem: "Ocorreu um erro, tente novamente mais tarde!" });
+};
+
+const createAStore = (req, res) => {
+  const newStore = req.body;
+
+  if (!newStore.id.trim()) {
+    return res.status(400).json({ mensagem: "O id não pode ser vazio!" });
+  }
+
+  const idValidation = storeService.getStoreById(newStore.id);
+
+  if (!!idValidation && !!Object.keys(idValidation).length) {
+    return res
+      .status(400)
+      .json({ mensagem: "Esse ID já foi cadastrado, tente um novo!" });
+  }
+
+  if (!newStore.nome.trim()) {
+    return res.status(400).json({ mensagem: "O nome é obrigatório!" });
+  }
+
+  if (typeof newStore.invoice !== "number") {
+    return res
+      .status(400)
+      .json({ mensagem: "O faturamento precisa ser do tipo numérico!" });
+  }
+
+  if (!newStore.state.trim()) {
+    return res.status(400).json({ mensagem: "O estado é obrigatório!" });
+  }
+
+  const createdStore = storeService.createAStore(newStore);
+  if (createdStore > 0) {
+    return res
+      .status(200)
+      .json({ data: newStore, mensagem: "Loja criada com sucesso!" });
+  }
+
+  return res
+    .status(500)
+    .json({ mensagem: "Ocorreu um erro, tente novamente mais tarde!" });
+};
+
 export {
+  removeAStore,
   getAllStores,
+  createAStore,
   getStoreById,
   getTotalInvoiceForAllStores,
   getTotalStoreInvoicePerUf,

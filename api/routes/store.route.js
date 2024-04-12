@@ -3,6 +3,7 @@ import * as storeController from "../controllers/store.controller.js";
 
 const storesRouter = Router();
 
+storesRouter.post("/stores", storeController.createAStore);
 storesRouter.get("/stores", storeController.getAllStores);
 storesRouter.get(
   "/stores/total-invoice",
@@ -13,5 +14,6 @@ storesRouter.get(
   storeController.getTotalStoreInvoicePerUf
 );
 storesRouter.get("/stores/:id", storeController.getStoreById);
+storesRouter.delete("/stores/:id", storeController.removeAStore);
 
 export default storesRouter;

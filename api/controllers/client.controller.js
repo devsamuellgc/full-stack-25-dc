@@ -31,15 +31,19 @@ const getClientById = (req, res) => {
 const removeClient = (req, res) => {
   const id = req.params.id;
   const client = clientService.getClientById(id);
+
   if (!client) {
     return res.status(404).json({ mensagem: "Usuário não encontrado!" });
   }
+
   const removedClient = clientService.removeAClient(client.id);
+
   if (!!Object.keys(removedClient).length) {
     return res
       .status(200)
       .json({ mensagem: "Cliente deletado com sucesso", data: client });
   }
+
   return res
     .status(500)
     .json({ mensagem: "Ocorreu um erro, tente novamente mais tarde!" });
