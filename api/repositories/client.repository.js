@@ -3,21 +3,25 @@ const clients = [
     id: "1",
     name: "Cliente 1",
     email: "cliente1@email.com",
+    role: "admin",
   },
   {
     id: "2",
     name: "Cliente 2",
     email: "cliente2@email.com",
+    role: "sales",
   },
   {
     id: "3",
     name: "Cliente 3",
     email: "cliente3@email.com",
+    role: "operator",
   },
   {
     id: "4",
     name: "Cliente 4",
     email: "cliente4@email.com",
+    role: "financial",
   },
 ];
 
