@@ -20,9 +20,9 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/livros", async (req, res) => {
-  const livros = await connection.query('SELECT * FROM livros;');
+  const livros = await connection.query("SELECT * FROM livros;");
   return res.json(livros.rows);
-})
+});
 
 app.get("/active-users", async (req, res) => {
   const users = await connection.query(
@@ -47,24 +47,24 @@ app.get("/livros/autor/:autor", async (req, res) => {
   const autor = req.params.autor;
   const livros = await connection.query(`
     SELECT * FROM livros WHERE autor = '${autor}'
-  `)
-  return res.json(livros.rows)
-})
+  `);
+  return res.json(livros.rows);
+});
 
 app.get("/livros/estoque", async (req, res) => {
   const livrosComEstoqueMaiorQueDez = await connection.query(`
     SELECT * FROM livros WHERE estoque > 10;
   `);
   return res.json(livrosComEstoqueMaiorQueDez.rows);
-})
+});
 
 app.get("/livros/:id", async (req, res) => {
   const id = req.params.id;
   const livro = await connection.query(`
     SELECT * FROM livros WHERE id = '${id}';
-  `)
-  return res.json(livro.rows[0])
-})
+  `);
+  return res.json(livro.rows[0]);
+});
 
 app.get("/cpf/:cpf", async (req, res) => {
   const userCpf = req.params.cpf;
@@ -81,13 +81,45 @@ app.get("/cpf/:cpf", async (req, res) => {
 app.post("/livros", async (req, res) => {
   const livro = req.body;
   const keys = Object.keys(livro);
-  console.log(keys);
-  // const livroCriado = await connection.query(`
-  //   INSERT INTO livros (nome, autor, estoque)
-  //   VALUES ('${livro.nome}', '${livro.autor}', ${livro.estoque});
-  // `)
-  return res.json(livro);
-})
+  const livroCriado = await connection.query(`
+    INSERT INTO livros (${keys.map((chave) => chave)})
+    VALUES (${keys.map((chave) =>
+      typeof livro[chave] === "string" ? `'${livro[chave]}'` : livro[chave]
+    )});
+  `);
+  return res.json(livroCriado);
+});
+
+app.delete("/livros/:id", async (req, res) => {
+  const id = req.params.id;
+  const livro = await connection.query(`
+    SELECT * FROM livros WHERE id = '${id}';
+  `);
+  await connection.query(`
+    DELETE FROM livros WHERE id = '${id}';
+  `);
+  return res.json(livro.rows[0]);
+});
+
+app.patch("/livros/:id", async (req, res) => {
+  const id = req.params.id;
+  const novoLivro = req.body;
+  const chaves = Object.keys(novoLivro);
+  const query = `
+  UPDATE livros
+  SET${chaves.map((chave) =>
+    typeof novoLivro[chave] === "string"
+      ? ` ${chave} = '${novoLivro[chave]}'`
+      : ` ${chave} = ${novoLivro[chave]}`
+  )}
+  WHERE id = ${id};
+  `;
+  await connection.query(query);
+  const livro = await connection.query(`
+  SELECT * FROM livros WHERE id = '${id}';
+  `);
+  return res.json(livro.rows[0]);
+});
 
 app.listen(3000, () => {
   console.log("Servidor rodando na porta 3000");
